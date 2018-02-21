@@ -1002,7 +1002,7 @@ export class DecredEngine {
       }
     }
 
-    const DecredParams = new DecredParams(inputs, outputs)
+    const decredParams = new DecredParams(inputs, outputs)
     // **********************************
     // Create the unsigned AbcTransaction
 
@@ -1015,7 +1015,7 @@ export class DecredEngine {
       networkFee: '0',
       ourReceiveAddresses,
       signedTx: 'unsigned_right_now',
-      otherParams: DecredParams
+      otherParams: decredParams
     }
 
     return abcTransaction

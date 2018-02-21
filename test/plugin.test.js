@@ -116,8 +116,8 @@ describe('derivePublicKey', function () {
 describe('parseUri', function () {
   it('address only', function (done) {
     makePlugin().then((plugin) => {
-      const parsedUri = plugin.parseUri('0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8')
-      assert.equal(parsedUri.publicAddress, '0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8')
+      const parsedUri = plugin.parseUri('DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY')
+      assert.equal(parsedUri.publicAddress, 'DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY')
       assert.equal(parsedUri.nativeAmount, null)
       assert.equal(parsedUri.currencyCode, null)
       done()
@@ -125,8 +125,8 @@ describe('parseUri', function () {
   })
   it('uri address', function (done) {
     makePlugin().then((plugin) => {
-      const parsedUri = plugin.parseUri('decred:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8')
-      assert.equal(parsedUri.publicAddress, '0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8')
+      const parsedUri = plugin.parseUri('decred:DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY')
+      assert.equal(parsedUri.publicAddress, 'DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY')
       assert.equal(parsedUri.nativeAmount, null)
       assert.equal(parsedUri.currencyCode, null)
       done()
@@ -134,8 +134,8 @@ describe('parseUri', function () {
   })
   it('uri address with amount', function (done) {
     makePlugin().then((plugin) => {
-      const parsedUri = plugin.parseUri('decred:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8?amount=12345.6789')
-      assert.equal(parsedUri.publicAddress, '0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8')
+      const parsedUri = plugin.parseUri('decred:DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY?amount=12345.6789')
+      assert.equal(parsedUri.publicAddress, 'DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY')
       assert.equal(parsedUri.nativeAmount, '123456789')
       assert.equal(parsedUri.currencyCode, 'TRD')
       done()
@@ -143,8 +143,8 @@ describe('parseUri', function () {
   })
   it('uri address with amount & label', function (done) {
     makePlugin().then((plugin) => {
-      const parsedUri = plugin.parseUri('decred:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8?amount=1234.5678&label=Johnny%20Bitcoin')
-      assert.equal(parsedUri.publicAddress, '0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8')
+      const parsedUri = plugin.parseUri('decred:DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY?amount=1234.5678&label=Johnny%20Bitcoin')
+      assert.equal(parsedUri.publicAddress, 'DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY')
       assert.equal(parsedUri.nativeAmount, '12345678')
       assert.equal(parsedUri.currencyCode, 'TRD')
       assert.equal(parsedUri.metadata.name, 'Johnny Bitcoin')
@@ -153,8 +153,8 @@ describe('parseUri', function () {
   })
   it('uri address with amount, label & message', function (done) {
     makePlugin().then((plugin) => {
-      const parsedUri = plugin.parseUri('decred:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8?amount=1234.5678&label=Johnny%20Bitcoin&message=Hello%20World,%20I%20miss%20you%20!')
-      assert.equal(parsedUri.publicAddress, '0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8')
+      const parsedUri = plugin.parseUri('decred:DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY?amount=1234.5678&label=Johnny%20Bitcoin&message=Hello%20World,%20I%20miss%20you%20!')
+      assert.equal(parsedUri.publicAddress, 'DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY')
       assert.equal(parsedUri.nativeAmount, '12345678')
       assert.equal(parsedUri.currencyCode, 'TRD')
       assert.equal(parsedUri.metadata.name, 'Johnny Bitcoin')
@@ -164,8 +164,8 @@ describe('parseUri', function () {
   })
   it('uri address with unsupported param', function (done) {
     makePlugin().then((plugin) => {
-      const parsedUri = plugin.parseUri('decred:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8?unsupported=helloworld&amount=12345.6789')
-      assert.equal(parsedUri.publicAddress, '0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8')
+      const parsedUri = plugin.parseUri('decred:DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY?unsupported=helloworld&amount=12345.6789')
+      assert.equal(parsedUri.publicAddress, 'DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY')
       assert.equal(parsedUri.nativeAmount, '123456789')
       assert.equal(parsedUri.currencyCode, 'TRD')
       done()
@@ -176,8 +176,8 @@ describe('parseUri', function () {
 describe('encodeUri', function () {
   it('address only', function (done) {
     makePlugin().then((plugin) => {
-      const encodedUri = plugin.encodeUri({publicAddress: '0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8'})
-      assert.equal(encodedUri, '0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8')
+      const encodedUri = plugin.encodeUri({publicAddress: 'DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY'})
+      assert.equal(encodedUri, 'DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY')
       done()
     })
   })
@@ -185,11 +185,11 @@ describe('encodeUri', function () {
     makePlugin().then((plugin) => {
       const encodedUri = plugin.encodeUri(
         {
-          publicAddress: '0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8',
+          publicAddress: 'DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY',
           nativeAmount: '12345678'
         }
       )
-      assert.equal(encodedUri, 'decred:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8?amount=1234.5678')
+      assert.equal(encodedUri, 'decred:DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY?amount=1234.5678')
       done()
     })
   })
@@ -197,7 +197,7 @@ describe('encodeUri', function () {
     makePlugin().then((plugin) => {
       const encodedUri = plugin.encodeUri(
         {
-          publicAddress: '0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8',
+          publicAddress: 'DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY',
           nativeAmount: '12345678',
           currencyCode: 'TRD',
           metadata: {
@@ -205,7 +205,7 @@ describe('encodeUri', function () {
           }
         }
       )
-      assert.equal(encodedUri, 'decred:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8?amount=1234.5678&label=Johnny%20Bitcoin')
+      assert.equal(encodedUri, 'decred:DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY?amount=1234.5678&label=Johnny%20Bitcoin')
       done()
     })
   })
@@ -213,7 +213,7 @@ describe('encodeUri', function () {
     makePlugin().then((plugin) => {
       const encodedUri = plugin.encodeUri(
         {
-          publicAddress: '0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8',
+          publicAddress: 'DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY',
           nativeAmount: '12345678',
           currencyCode: 'TRD',
           metadata: {
@@ -222,7 +222,7 @@ describe('encodeUri', function () {
           }
         }
       )
-      assert.equal(encodedUri, 'decred:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8?amount=1234.5678&label=Johnny%20Bitcoin&message=Hello%20World,%20I%20miss%20you%20!')
+      assert.equal(encodedUri, 'decred:DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY?amount=1234.5678&label=Johnny%20Bitcoin&message=Hello%20World,%20I%20miss%20you%20!')
       done()
     })
   })
@@ -231,7 +231,7 @@ describe('encodeUri', function () {
       assert.throws(() => {
         plugin.encodeUri(
           {
-            publicAddress: '0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8',
+            publicAddress: 'DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY',
             nativeAmount: '12345678',
             currencyCode: 'INVALID',
             name: 'Johnny Bitcoin',
