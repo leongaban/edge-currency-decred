@@ -3,7 +3,7 @@
 
 import { base16 } from 'rfc4648'
 import { txLibInfo } from './currencyInfoTRD.js'
-import { ShitcoinEngine, WalletLocalData, DATA_STORE_FOLDER, DATA_STORE_FILE } from './currencyEngineTRD.js'
+import { DecredEngine, WalletLocalData, DATA_STORE_FOLDER, DATA_STORE_FILE } from './currencyEngineTRD.js'
 import type {
   AbcParsedUri,
   AbcEncodeUri,
@@ -31,21 +31,21 @@ function getParameterByName (param, url) {
   return decodeURIComponent(results[2].replace(/\+/g, ' '))
 }
 
-export const shitcoinCurrencyPluginFactory: AbcCurrencyPluginFactory = {
+export const decredCurrencyPluginFactory: AbcCurrencyPluginFactory = {
   pluginType: 'currency',
-  pluginName: 'shitcoin',
+  pluginName: 'decred',
 
   async makePlugin (opts:any):Promise<AbcCurrencyPlugin> {
     io = opts.io
 
-    const shitcoinPlugin: AbcCurrencyPlugin = {
-      pluginName: 'shitcoin',
+    const decredPlugin: AbcCurrencyPlugin = {
+      pluginName: 'decred',
       currencyInfo: txLibInfo.currencyInfo,
 
       createPrivateKey: (walletType: string) => {
         const type = walletType.replace('wallet:', '')
 
-        if (type === 'shitcoin') {
+        if (type === 'decred') {
           const masterPrivateKey = 'tpriv' + base16.stringify(io.random(8))
           return { masterPrivateKey }
         } else {
@@ -55,7 +55,7 @@ export const shitcoinCurrencyPluginFactory: AbcCurrencyPluginFactory = {
 
       derivePublicKey: (walletInfo: AbcWalletInfo) => {
         const type = walletInfo.type.replace('wallet:', '')
-        if (type === 'shitcoin') {
+        if (type === 'decred') {
           if (typeof walletInfo.keys.masterPrivateKey !== 'string') {
             throw new Error('InvalidKeyName')
           }
@@ -73,7 +73,7 @@ export const shitcoinCurrencyPluginFactory: AbcCurrencyPluginFactory = {
       },
 
       async makeEngine (walletInfo: AbcWalletInfo, opts: any = {}):any {
-        const engine = new ShitcoinEngine(io, walletInfo, opts)
+        const engine = new DecredEngine(io, walletInfo, opts)
         let newData = false
         if (opts.resetData === 'true') {
           newData = true
@@ -126,7 +126,7 @@ export const shitcoinCurrencyPluginFactory: AbcCurrencyPluginFactory = {
 
         if (
           typeof parsedUri.scheme !== 'undefined' &&
-          parsedUri.scheme !== 'shitcoin'
+          parsedUri.scheme !== 'decred'
         ) {
           throw new Error('InvalidUriError')
         }
@@ -211,7 +211,7 @@ export const shitcoinCurrencyPluginFactory: AbcCurrencyPluginFactory = {
           queryString = queryString.substr(0, queryString.length - 1)
 
           const serializeObj = {
-            scheme: 'shitcoin',
+            scheme: 'decred',
             path: obj.publicAddress,
             query: queryString
           }
@@ -222,7 +222,7 @@ export const shitcoinCurrencyPluginFactory: AbcCurrencyPluginFactory = {
     }
 
     async function initPlugin (opts:any) {
-      return shitcoinPlugin
+      return decredPlugin
     }
 
     return initPlugin(opts)
@@ -231,4 +231,4 @@ export const shitcoinCurrencyPluginFactory: AbcCurrencyPluginFactory = {
 
 // Since plugins are normal objects, their names should be lowercase.
 // We messed up, but we still keep the old name around for compatibility:
-export { shitcoinCurrencyPluginFactory as ShitcoinCurrencyPluginFactory }
+export { decredCurrencyPluginFactory as DecredCurrencyPluginFactory }

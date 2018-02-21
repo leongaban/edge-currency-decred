@@ -1,5 +1,5 @@
 /* global describe it */
-const { ShitcoinCurrencyPluginFactory } = require('../lib/indexShitcoin.js')
+const { DecredCurrencyPluginFactory } = require('../lib/index.js')
 const assert = require('assert')
 
 const io = {
@@ -19,13 +19,13 @@ const io = {
 }
 
 function makePlugin () {
-  return ShitcoinCurrencyPluginFactory.makePlugin({io})
+  return DecredCurrencyPluginFactory.makePlugin({io})
 }
 
 // function makeEngine () {
 //   return new Promise((resolve, reject) => {
 //     makePlugin().then((plugin) => {
-//       const type = 'wallet:shitcoin'
+//       const type = 'wallet:decred'
 //       const keys = plugin.createPrivateKey(type)
 //       const walletInfo = {
 //         type,
@@ -54,7 +54,7 @@ describe('Plugin', function () {
 describe('createPrivateKey', function () {
   it('Create valid key', function (done) {
     makePlugin().then((plugin) => {
-      const privateKeys = plugin.createPrivateKey('wallet:shitcoin')
+      const privateKeys = plugin.createPrivateKey('wallet:decred')
       assert.equal(!privateKeys, false)
       assert.equal(typeof privateKeys.masterPrivateKey, 'string')
       assert.equal(privateKeys.masterPrivateKey, 'tprivA7E6EAB74DAFDEDD')
@@ -67,7 +67,7 @@ describe('derivePublicKey', function () {
   it('Valid private key', function (done) {
     makePlugin().then((plugin) => {
       const walletInfoprivate = {
-        type: 'shitcoin',
+        type: 'decred',
         keys: {'masterPrivateKey': 'tpriv12345abcde'}
       }
       const publicKeys = plugin.derivePublicKey(walletInfoprivate)
@@ -80,7 +80,7 @@ describe('derivePublicKey', function () {
     makePlugin().then((plugin) => {
       assert.throws(() => {
         plugin.derivePublicKey({
-          type: 'shitcoin',
+          type: 'decred',
           keys: {'masterPrivateKeyz': 'tpriv12345abcde'}
         })
       })
@@ -92,7 +92,7 @@ describe('derivePublicKey', function () {
     makePlugin().then((plugin) => {
       assert.throws(() => {
         plugin.derivePublicKey({
-          type: 'shitcoin',
+          type: 'decred',
           keys: {'masterPrivateKey': 'tp12345abcde'}
         })
       })
@@ -104,7 +104,7 @@ describe('derivePublicKey', function () {
     makePlugin().then((plugin) => {
       assert.throws(() => {
         plugin.derivePublicKey({
-          type: 'shitcoinz',
+          type: 'decredz',
           keys: {'masterPrivateKey': '12345abcde'}
         })
       })
@@ -125,7 +125,7 @@ describe('parseUri', function () {
   })
   it('uri address', function (done) {
     makePlugin().then((plugin) => {
-      const parsedUri = plugin.parseUri('shitcoin:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8')
+      const parsedUri = plugin.parseUri('decred:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8')
       assert.equal(parsedUri.publicAddress, '0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8')
       assert.equal(parsedUri.nativeAmount, null)
       assert.equal(parsedUri.currencyCode, null)
@@ -134,7 +134,7 @@ describe('parseUri', function () {
   })
   it('uri address with amount', function (done) {
     makePlugin().then((plugin) => {
-      const parsedUri = plugin.parseUri('shitcoin:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8?amount=12345.6789')
+      const parsedUri = plugin.parseUri('decred:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8?amount=12345.6789')
       assert.equal(parsedUri.publicAddress, '0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8')
       assert.equal(parsedUri.nativeAmount, '123456789')
       assert.equal(parsedUri.currencyCode, 'TRD')
@@ -143,7 +143,7 @@ describe('parseUri', function () {
   })
   it('uri address with amount & label', function (done) {
     makePlugin().then((plugin) => {
-      const parsedUri = plugin.parseUri('shitcoin:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8?amount=1234.5678&label=Johnny%20Bitcoin')
+      const parsedUri = plugin.parseUri('decred:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8?amount=1234.5678&label=Johnny%20Bitcoin')
       assert.equal(parsedUri.publicAddress, '0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8')
       assert.equal(parsedUri.nativeAmount, '12345678')
       assert.equal(parsedUri.currencyCode, 'TRD')
@@ -153,7 +153,7 @@ describe('parseUri', function () {
   })
   it('uri address with amount, label & message', function (done) {
     makePlugin().then((plugin) => {
-      const parsedUri = plugin.parseUri('shitcoin:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8?amount=1234.5678&label=Johnny%20Bitcoin&message=Hello%20World,%20I%20miss%20you%20!')
+      const parsedUri = plugin.parseUri('decred:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8?amount=1234.5678&label=Johnny%20Bitcoin&message=Hello%20World,%20I%20miss%20you%20!')
       assert.equal(parsedUri.publicAddress, '0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8')
       assert.equal(parsedUri.nativeAmount, '12345678')
       assert.equal(parsedUri.currencyCode, 'TRD')
@@ -164,7 +164,7 @@ describe('parseUri', function () {
   })
   it('uri address with unsupported param', function (done) {
     makePlugin().then((plugin) => {
-      const parsedUri = plugin.parseUri('shitcoin:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8?unsupported=helloworld&amount=12345.6789')
+      const parsedUri = plugin.parseUri('decred:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8?unsupported=helloworld&amount=12345.6789')
       assert.equal(parsedUri.publicAddress, '0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8')
       assert.equal(parsedUri.nativeAmount, '123456789')
       assert.equal(parsedUri.currencyCode, 'TRD')
@@ -189,7 +189,7 @@ describe('encodeUri', function () {
           nativeAmount: '12345678'
         }
       )
-      assert.equal(encodedUri, 'shitcoin:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8?amount=1234.5678')
+      assert.equal(encodedUri, 'decred:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8?amount=1234.5678')
       done()
     })
   })
@@ -205,7 +205,7 @@ describe('encodeUri', function () {
           }
         }
       )
-      assert.equal(encodedUri, 'shitcoin:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8?amount=1234.5678&label=Johnny%20Bitcoin')
+      assert.equal(encodedUri, 'decred:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8?amount=1234.5678&label=Johnny%20Bitcoin')
       done()
     })
   })
@@ -222,7 +222,7 @@ describe('encodeUri', function () {
           }
         }
       )
-      assert.equal(encodedUri, 'shitcoin:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8?amount=1234.5678&label=Johnny%20Bitcoin&message=Hello%20World,%20I%20miss%20you%20!')
+      assert.equal(encodedUri, 'decred:0xEA674fdDe714fd979de3EdF0F56AA9716B898ec8?amount=1234.5678&label=Johnny%20Bitcoin&message=Hello%20World,%20I%20miss%20you%20!')
       done()
     })
   })

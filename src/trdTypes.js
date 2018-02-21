@@ -3,6 +3,6 @@
  */
 // @flow
 
-export type ShitcoinSettings = {
-  shitcoinServers:Array<string>
+export type DecredSettings = {
+  decredServers:Array<string>
 }

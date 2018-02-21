@@ -9,7 +9,7 @@ import type {
   AbcTransaction,
   AbcWalletInfo
 } from 'edge-login'
-import type { ShitcoinSettings } from './trdTypes'
+import type { DecredSettings } from './trdTypes'
 import { validate } from 'jsonschema'
 import { bns } from 'biggystring'
 import { sprintf } from 'sprintf-js'
@@ -88,7 +88,7 @@ export class WalletLocalData {
 
   constructor (jsonString:any) {
     this.blockHeight = 0
-    this.totalBalances = { TRD: '0', ANA: '0', DOGESHIT: '0', HOLYSHIT: '0' }
+    this.totalBalances = {}
 
     // Map of gap limit addresses
     this.gapLimitAddresses = []
@@ -125,7 +125,7 @@ export class WalletLocalData {
   }
 }
 
-class ShitcoinParams {
+class DecredParams {
   inputs:any
   outputs:any
 
@@ -135,7 +135,7 @@ class ShitcoinParams {
   }
 }
 
-export class ShitcoinEngine {
+export class DecredEngine {
   io:any
   walletInfo:AbcWalletInfo
   abcTxLibCallbacks:any
@@ -148,7 +148,7 @@ export class ShitcoinEngine {
   walletLocalData:WalletLocalData
   walletLocalDataDirty:boolean
   transactionsChangedArray:Array<{}>
-  currentSettings:ShitcoinSettings
+  currentSettings:DecredSettings
 
   constructor (_io:any, walletInfo:any, opts:any) {
     // Validate that we are a valid AbcCurrencyEngine:
@@ -181,13 +181,13 @@ export class ShitcoinEngine {
   // Private methods
   // *************************************
 
-  async fetchGetShitcoin (cmd:string, params:string) {
-    const url = sprintf('%s/api/%s/%s', this.currentSettings.shitcoinServers[0], cmd, params)
+  async fetchGetDecred (cmd:string, params:string) {
+    const url = sprintf('%s/api/%s/%s', this.currentSettings.decredServers[0], cmd, params)
     return fetchGet(url)
   }
 
-  async fetchPostShitcoin (cmd:string, body:any) {
-    const url = sprintf('%s/api%s', this.currentSettings.shitcoinServers[0], cmd)
+  async fetchPostDecred (cmd:string, body:any) {
+    const url = sprintf('%s/api%s', this.currentSettings.decredServers[0], cmd)
     return fetchPost(url, body)
   }
 
@@ -197,7 +197,7 @@ export class ShitcoinEngine {
   async blockHeightInnerLoop () {
     while (this.engineOn) {
       try {
-        const jsonObj = await this.fetchGetShitcoin('height', '')
+        const jsonObj = await this.fetchGetDecred('height', '')
         const valid = validateObject(jsonObj, {
           'type': 'object',
           'properties': {
@@ -257,7 +257,7 @@ export class ShitcoinEngine {
   async processTransactionFromServer (txid:string) {
     let jsonObj
     try {
-      jsonObj = await this.fetchGetShitcoin('transaction', txid)
+      jsonObj = await this.fetchGetDecred('transaction', txid)
     } catch (err) {
       io.console.error('Error fetching transaction')
       io.console.error(err)
@@ -327,7 +327,7 @@ export class ShitcoinEngine {
     const inputs = jsonObj.inputs
     const outputs = jsonObj.outputs
 
-    const otherParams = new ShitcoinParams(inputs, outputs)
+    const otherParams = new DecredParams(inputs, outputs)
 
     for (const currencyCode of TOKEN_CODES) {
       receiveAmounts[currencyCode] = '0'
@@ -493,7 +493,7 @@ export class ShitcoinEngine {
   async processAddressFromServer (address:string) {
     let jsonObj = {}
     try {
-      jsonObj = await this.fetchGetShitcoin('address', address)
+      jsonObj = await this.fetchGetDecred('address', address)
     } catch (err) {
       io.console.error('Error fetching address: ' + address)
       return 0
@@ -1002,7 +1002,7 @@ export class ShitcoinEngine {
       }
     }
 
-    const shitcoinParams = new ShitcoinParams(inputs, outputs)
+    const DecredParams = new DecredParams(inputs, outputs)
     // **********************************
     // Create the unsigned AbcTransaction
 
@@ -1015,7 +1015,7 @@ export class ShitcoinEngine {
       networkFee: '0',
       ourReceiveAddresses,
       signedTx: 'unsigned_right_now',
-      otherParams: shitcoinParams
+      otherParams: DecredParams
     }
 
     return abcTransaction
@@ -1030,7 +1030,7 @@ export class ShitcoinEngine {
   // asynchronous
   async broadcastTx (abcTransaction:AbcTransaction) {
     try {
-      const jsonObj = await this.fetchPostShitcoin('spend', abcTransaction.otherParams)
+      const jsonObj = await this.fetchPostDecred('spend', abcTransaction.otherParams)
       // Copy params from returned transaction object to our abcTransaction object
       abcTransaction.blockHeight = jsonObj.blockHeight
       abcTransaction.txid = jsonObj.txid

@@ -1,23 +1,24 @@
 {
-  "name": "airbitz-currency-shitcoin",
+  "name": "airbitz-currency-decred",
   "version": "0.1.2",
-  "description": "Airbitz Shitcoin currency plugin",
+  "description": "Airbitz Decred currency plugin",
   "homepage": "https://airbitz.co",
   "license": "SEE LICENSE IN LICENSE",
   "author": "Airbitz, Inc.",
   "contributors": [
     "Paul Puey <paul@airbitz.co>",
-    "William Swanson <william@airbitz.co>"
+    "William Swanson <william@airbitz.co>",
+    "Leon Gaban <leongaban@gmail.com>"
   ],
   "files": [
     "changelog.md",
     "lib/*"
   ],
-  "main": "./lib/indexShitcoin.js",
-  "module": "./lib/indexShitcoin.es.js",
+  "main": "./lib/index.js",
+  "module": "./lib/index.es.js",
   "repository": {
     "type": "git",
-    "url": "git@github.com:Airbitz/airbitz-currency-shitcoin.git"
+    "url": "git@github.com:Airbitz/airbitz-currency-decred.git"
   },
   "dependencies": {
     "biggystring": "^1.0.3",
