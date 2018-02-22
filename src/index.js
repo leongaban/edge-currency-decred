@@ -2,8 +2,8 @@
 // @flow
 
 import { base16 } from 'rfc4648'
-import { txLibInfo } from './currencyInfoTRD.js'
-import { DecredEngine, WalletLocalData, DATA_STORE_FOLDER, DATA_STORE_FILE } from './currencyEngineTRD.js'
+import { txLibInfo } from './decredInfo.js'
+import { DecredEngine, WalletLocalData, DATA_STORE_FOLDER, DATA_STORE_FILE } from './decredEngine.js'
 import type {
   AbcParsedUri,
   AbcEncodeUri,
@@ -141,7 +141,7 @@ export const decredCurrencyPluginFactory: AbcCurrencyPluginFactory = {
         const amountStr = getParameterByName('amount', uri)
         if (amountStr && typeof amountStr === 'string') {
           amount = parseFloat(amountStr)
-          const denom = getDenomInfo('TRD')
+          const denom = getDenomInfo('DCR')
           if (!denom) {
             throw new Error('InternalErrorInvalidCurrencyCode')
           }
@@ -150,7 +150,7 @@ export const decredCurrencyPluginFactory: AbcCurrencyPluginFactory = {
             multiplier = multiplier.toString()
           }
           nativeAmount = bns.mulf(amount, multiplier)
-          currencyCode = 'TRD'
+          currencyCode = 'DCR'
         }
         label = getParameterByName('label', uri)
         message = getParameterByName('message', uri)
@@ -187,7 +187,7 @@ export const decredCurrencyPluginFactory: AbcCurrencyPluginFactory = {
           let queryString: string = ''
 
           if (typeof obj.nativeAmount === 'string') {
-            let currencyCode: string = 'TRD'
+            let currencyCode: string = 'DCR'
             let nativeAmount: string = obj.nativeAmount
             if (typeof obj.currencyCode === 'string') {
               currencyCode = obj.currencyCode
