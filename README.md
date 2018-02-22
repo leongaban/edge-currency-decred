@@ -20,7 +20,7 @@ Since this package is not on NPM, you will have to do things manually:
 Initialize the plugin:
 
 ```
-import { DecredPlugin } from `airbitz-currency-dash`
+import { DecredPlugin } from `airbitz-currency-decred`
 
 DecredPlugin.makePlugin({
   io: yourPlatformSpecifcIo
@@ -68,7 +68,7 @@ Example CLI commands:
 | `tx-info decred` | Get the `currencyInfo` object from the plugin |
 | `tx-make-engine decred 'wallet:decred'` | Call makeEngine() method of the decred plugin and createMasterKeys() with a `wallet:decred` walletType |
 | `tx-start-engine` | Call startEngine() method of the plugin called in `tx-make-engine` |
-| `tx-balance DASH` | Call getBalance('DCR') |
+| `tx-balance DCR` | Call getBalance('DCR') |
 | `tx-get-address` | Call getAddress() |
 | `tx-spend DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY 10 DCR` | Spend 10 decred to given address |
 | `tx-transactions` | Call getTransactions() |
