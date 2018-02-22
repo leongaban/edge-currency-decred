@@ -70,7 +70,7 @@ Example CLI commands:
 | `tx-start-engine` | Call startEngine() method of the plugin called in `tx-make-engine` |
 | `tx-balance DASH` | Call getBalance('DCR') |
 | `tx-get-address` | Call getAddress() |
-| `tx-spend DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY 15000 DCR` | Spend 1.5 decred to given address |
+| `tx-spend DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY 10 DCR` | Spend 10 decred to given address |
 | `tx-transactions` | Call getTransactions() |
 
 These CLI commands can be used to test the actual routines exported by the currency-plugin

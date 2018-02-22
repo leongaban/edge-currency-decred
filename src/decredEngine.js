@@ -3,13 +3,13 @@
  */
 // @flow
 
-import { txLibInfo } from './currencyInfoTRD.js'
+import { txLibInfo } from './decredInfo.js'
 import type {
   AbcCurrencyEngine,
   AbcTransaction,
   AbcWalletInfo
 } from 'edge-login'
-import type { DecredSettings } from './trdTypes'
+import type { DecredSettings } from './dcrTypes'
 import { validate } from 'jsonschema'
 import { bns } from 'biggystring'
 import { sprintf } from 'sprintf-js'
@@ -438,7 +438,7 @@ export class DecredEngine {
         )
 
         const arrayAmounts = response
-        let totalBalances = { TRD: '0' }
+        let totalBalances = { DCR: '0' }
         for (let n = 0; n < arrayAmounts.length; n++) {
           const amountsObj:any = arrayAmounts[n]
           for (const currencyCode:any in amountsObj) {
@@ -896,7 +896,7 @@ export class DecredEngine {
         throw (new Error('Error: Token not supported or enabled'))
       }
     } else {
-      abcSpendInfo.currencyCode = 'TRD'
+      abcSpendInfo.currencyCode = 'DCR'
     }
     const currencyCode = abcSpendInfo.currencyCode
 

@@ -45,7 +45,7 @@ function makePlugin () {
 describe('Plugin', function () {
   it('Get currency info', function (done) {
     makePlugin().then((plugin) => {
-      assert.equal(plugin.currencyInfo.currencyCode, 'TRD')
+      assert.equal(plugin.currencyInfo.currencyCode, 'DCR')
       done()
     })
   })
@@ -137,7 +137,7 @@ describe('parseUri', function () {
       const parsedUri = plugin.parseUri('decred:DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY?amount=12345.6789')
       assert.equal(parsedUri.publicAddress, 'DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY')
       assert.equal(parsedUri.nativeAmount, '123456789')
-      assert.equal(parsedUri.currencyCode, 'TRD')
+      assert.equal(parsedUri.currencyCode, 'DCR')
       done()
     })
   })
@@ -146,7 +146,7 @@ describe('parseUri', function () {
       const parsedUri = plugin.parseUri('decred:DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY?amount=1234.5678&label=Johnny%20Bitcoin')
       assert.equal(parsedUri.publicAddress, 'DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY')
       assert.equal(parsedUri.nativeAmount, '12345678')
-      assert.equal(parsedUri.currencyCode, 'TRD')
+      assert.equal(parsedUri.currencyCode, 'DCR')
       assert.equal(parsedUri.metadata.name, 'Johnny Bitcoin')
       done()
     })
@@ -156,7 +156,7 @@ describe('parseUri', function () {
       const parsedUri = plugin.parseUri('decred:DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY?amount=1234.5678&label=Johnny%20Bitcoin&message=Hello%20World,%20I%20miss%20you%20!')
       assert.equal(parsedUri.publicAddress, 'DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY')
       assert.equal(parsedUri.nativeAmount, '12345678')
-      assert.equal(parsedUri.currencyCode, 'TRD')
+      assert.equal(parsedUri.currencyCode, 'DCR')
       assert.equal(parsedUri.metadata.name, 'Johnny Bitcoin')
       assert.equal(parsedUri.metadata.message, 'Hello World, I miss you !')
       done()
@@ -167,7 +167,7 @@ describe('parseUri', function () {
       const parsedUri = plugin.parseUri('decred:DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY?unsupported=helloworld&amount=12345.6789')
       assert.equal(parsedUri.publicAddress, 'DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY')
       assert.equal(parsedUri.nativeAmount, '123456789')
-      assert.equal(parsedUri.currencyCode, 'TRD')
+      assert.equal(parsedUri.currencyCode, 'DCR')
       done()
     })
   })
@@ -199,7 +199,7 @@ describe('encodeUri', function () {
         {
           publicAddress: 'DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY',
           nativeAmount: '12345678',
-          currencyCode: 'TRD',
+          currencyCode: 'DCR',
           metadata: {
             name: 'Johnny Bitcoin'
           }
@@ -215,7 +215,7 @@ describe('encodeUri', function () {
         {
           publicAddress: 'DsSwxxpzrRgn1ZWtWzFw8cBxMoqC8qp1BZY',
           nativeAmount: '12345678',
-          currencyCode: 'TRD',
+          currencyCode: 'DCR',
           metadata: {
             name: 'Johnny Bitcoin',
             message: 'Hello World, I miss you !'
